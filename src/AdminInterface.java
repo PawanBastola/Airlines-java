@@ -1,22 +1,27 @@
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class AdminInterface {
 	AdminInterface(){
 		JFrame frame=new JFrame("AdminInterface");
-		frame.setSize(800, 500);
-		frame.setLayout(null);
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
+				
+		frame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+                frame.setLayout(null);
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                frame.setSize(screenSize.width,screenSize.height);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                
 		
-		ImageIcon image1 =new ImageIcon(new ImageIcon("C:/users/killer/Desktop/dashboard.jpg").getImage().getScaledInstance(800,500,Image.SCALE_DEFAULT));
+		ImageIcon image1 =new ImageIcon(new ImageIcon("C:/users/killer/Desktop/dashboard.jpg").getImage().getScaledInstance(screenSize.width,screenSize.height,Image.SCALE_DEFAULT));
 		JLabel imagebackground = new JLabel(image1);
 		imagebackground.setLayout(null);
-		imagebackground.setBounds(0,0,800,500);
+		imagebackground.setSize(screenSize.width,screenSize.height);
 		frame.add(imagebackground);
 		
 		
@@ -139,12 +144,13 @@ public class AdminInterface {
 		  });
 			
 	}
+        public static void main(String[] args) {
+       SwingUtilities.invokeLater(new Runnable() {
+		public void run() {
+	
+	new AdminInterface();
 }
-
-
-
-
-
-		
-
-
+});
+            
+        }
+    }
