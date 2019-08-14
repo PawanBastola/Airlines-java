@@ -1,4 +1,4 @@
-package bus_details;
+
 
 
 
@@ -8,16 +8,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import login.Connect;
+
 
 public class AddBus {
 	public AddBus() {
 		Connect connect=new Connect();
-		try {
-		connect.server();
-		}catch(Exception e) {
-			
-		}
+		
 		JFrame frame=new JFrame("Add BUS");
 		frame.setSize(300, 350);
 		frame.setLayout(null);
@@ -121,7 +117,7 @@ public class AddBus {
 			            	 
 			            	 
 			            	 
-			            	 String sql="INSERT INTO `addbus` (`Busid`, `Bus Name`, `From`, `To`, `Departure`, `Type`, `distance`, `Rate`) "
+			            	 String sql="INSERT INTO `addbus` (`Busid`, `Bus Name`, `from1`, `to1`, `Departure`, `Type`, `distance`, `Rate`) "
 			            	 		+ "VALUES (NULL, '"+Busname+"', '"+from+"', '"+to+"', '"+depart+"', '"+type+"', '"+distance+"', '"+rate+"')";
 			            	 connect.append(sql,"inserted");
 			            	 

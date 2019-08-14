@@ -1,201 +1,414 @@
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.ResultSet;
 
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 public class New_Booking {
-	New_Booking(){
+	New_Booking() {
+		Connect connect = new Connect();
+
 		JFrame frame1 = new JFrame("New Booking");
-		frame1.setResizable(false);
-		frame1.setSize(550, 600);
-		frame1.setVisible(true);
+		frame1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		frame1.setLayout(null);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frame1.setSize(screenSize.width, screenSize.height);
 		frame1.setLocationRelativeTo(null);
-		
-		
+		frame1.setVisible(true);
+
 		JButton back = new JButton("back");
-		back.setBounds(0,0,65,30);
+		back.setBounds(0, 0, 65, 30);
 		frame1.add(back);
-		
+
+		back.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent ae) {
+				frame1.dispose();
+
+			}
+
+		});
+
 		JPanel panel1 = new JPanel();
-		panel1.setBounds(10,30,550,300);
+		frame1.setVisible(true);
+
+		panel1.setBounds(10, 30, screenSize.width, screenSize.height);
 		panel1.setLayout(null);
 		frame1.add(panel1);
-		
-		
-		
-		JRadioButton roundtrip = new JRadioButton("Round trip",true);
-		roundtrip.setBounds(50,-5,100,30);
-		panel1.add(roundtrip);
-				
-		JRadioButton oneway = new JRadioButton("One way");
-		oneway.setBounds(160,-5,100,30);
-		panel1.add(oneway);
-		
-		
-		
-		ButtonGroup tripgroup = new ButtonGroup();
-		tripgroup.add(roundtrip);
-		tripgroup.add(oneway);
-				
-		
-		JLabel lbl=new JLabel("From :");
-		lbl.setBounds(0,25,60,30);
+
+		JLabel lbl = new JLabel("From :");
+		lbl.setBounds(0, 25, 60, 30);
 		panel1.add(lbl);
-		 
-		String arr[]= {"Bhadrapur","Biratnagar"};
-		JComboBox cmb=new JComboBox(arr);
-		cmb.setBounds(60,25,120,30);
-		panel1.add(cmb);
-		
-		JLabel lbl1=new JLabel("To :");
-		lbl1.setBounds(0,65,60,30);
+
+		JComboBox<String> locationfrom = new JComboBox<String>();
+		locationfrom.setBounds(60, 25, 120, 30);
+		panel1.add(locationfrom);
+		try {
+
+			String sqllocationinput = "SELECT * FROM location";
+			ResultSet rs = connect.display(sqllocationinput);
+			while (rs.next()) {
+				locationfrom.addItem(rs.getString(1));
+
+			}
+
+		} catch (Exception abc) {
+			JOptionPane.showMessageDialog(null, abc);
+		}
+
+		JLabel lbl1 = new JLabel("To :");
+		lbl1.setBounds(190, 25, 30, 30);
 		panel1.add(lbl1);
-		
-		String arr1[]= {"Kathmandu","Pokhara"};
-		JComboBox cmb1=new JComboBox(arr1);
-		cmb1.setBounds(60,65,120,30);
-		panel1.add(cmb1);
-			
-		
-		JLabel lbl2 = new JLabel("Departure :");
-		lbl2.setBounds(0, 105, 70, 30);
-		panel1.add(lbl2);
+		try {
+			// copy
+			JComboBox<String> locationto = new JComboBox<String>();
+			locationto.setBounds(230, 25, 120, 30);
+			panel1.add(locationto);
+			String sqllocationinput = "SELECT * FROM location";
+			ResultSet rs = connect.display(sqllocationinput);
+			while (rs.next()) {
+				locationto.addItem(rs.getString(1));
 
-		JTextField dd = new JTextField();
-		dd.setBounds(75, 110, 100, 20);
-		panel1.add(dd);
+			}
 
-		JLabel lbl3 = new JLabel("Return :");
-		lbl3.setBounds(200, 105, 60, 30);
-		panel1.add(lbl3);
+		} catch (Exception abc) {
+			JOptionPane.showMessageDialog(null, abc);
+		}
 
-		JTextField dd2 = new JTextField();
-		dd2.setBounds(250, 110, 100, 20);
-		panel1.add(dd2);
-		
-		JLabel adult = new JLabel("Adult :");
-		adult.setBounds(0,130,70,30);
-		panel1.add(adult);
-		
-		JTextField adultfield = new JTextField();
-		adultfield.setBounds(75, 135, 100, 20);
-		panel1.add(adultfield);
-				
-		
-		
-		JLabel child = new JLabel("Child :");
-		child.setBounds(200,130,70,30);
-		panel1.add(child);
-		
-		JTextField childfield = new JTextField();
-		childfield.setBounds(250, 135, 100, 20);
-		panel1.add(childfield);
-		
-		String[] snationality = { "Nationality", "Nepal", "India", "Australia", "America", "New Zealand", "Canada", "Germany" };
-		JComboBox nationselect = new JComboBox(snationality);
-		nationselect.setBounds(370, 110, 100, 40);
-		panel1.add(nationselect); 
-		
-		
-		JButton findflight = new JButton("Find Flight");
-		findflight.setBounds(370,160,100,30);
-		panel1.add(findflight);
-		
-		
-		//hiding the return label and textfield incomplete.
+		// copy
+
+		// sql code
+
+		DefaultTableModel autotablerow = new DefaultTableModel();
+		String[] viewcolumn = { "flightid", "from", "to", "arrival", "departure", "adultprice", "childprice",
+				"seatno" };
+
+		JTable viewtable = new JTable();
+		autotablerow.setColumnIdentifiers(viewcolumn);
+		viewtable.setModel(autotablerow);
+
+		viewtable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		JScrollPane viewsp = new JScrollPane(viewtable);
+
+		panel1.add(viewsp);
+
+		try {
+			String sql = "SELECT * FROM flightdetails";
+			ResultSet rs = connect.display(sql);
+			while (rs.next()) {
+				autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8) });
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
+
+		viewsp.setBounds(5, 70, 800, 400);
+		panel1.add(viewsp);
+
+		//
+
+		//
+
+		////
+		////
+		////
+		/////
+		//////////
+		/////////////
 		/*
-		 * if(roundtrip.isSelected()) { lbl3.setVisible(true); dd2.setVisible(true); }
-		 * else if(oneway.isSelected()) { lbl3.setVisible(false); dd2.setVisible(false);
+		 * locationfrom.addItemListener(new ItemListener() { public void
+		 * itemStateChanged(ItemEvent ii) { String sqllocation; if (ii.getStateChange()
+		 * == ItemEvent.SELECTED) { sqllocation =
+		 * "SELECT * FROM `flightdetails` WHERE `from2`='" +
+		 * locationfrom.getSelectedItem().toString() + "'"; } else sqllocation =
+		 * "SELECT * FROM `flightdetails`";
+		 * 
+		 * try { ResultSet rs = connect.display(sqllocation); viewsp.repaint();
+		 * autotablerow.getDataVector().removeAllElements();
+		 * 
+		 * while (rs.next()) { autotablerow.addRow(new String[] { rs.getString(1),
+		 * rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+		 * rs.getString(6), rs.getString(7), rs.getString(8), });
+		 * 
+		 * } } catch (Exception ee) { ee.printStackTrace(); } }
 		 * 
 		 * }
+		 * 
+		 * );
 		 */
-		
-		
-		
-		
-		 /* JTextField dd1=new JTextField(); dd1.setBounds(130,70,50,30);
-		 * frame1.add(dd1); JTextField dd2=new JTextField();
-		 * dd2.setBounds(200,70,50,30); frame1.add(dd2);
-		 * 
-		 * JLabel lbl3=new JLabel("DD"); lbl3.setBounds(75,100,30,30); frame1.add(lbl3);
-		 * 
-		 * JLabel lbl4=new JLabel("MM"); lbl4.setBounds(145,100,30,30);
-		 * frame1.add(lbl4);
-		 * 
-		 * JLabel lbl5=new JLabel("YY"); lbl5.setBounds(215,100,30,30);
-		 * frame1.add(lbl5);
-		 * 
-		 * 
-		 * JButton btn=new JButton("Find Flight"); btn.setBounds(330,70,120,30);
-		 * frame1.add(btn);
-		 * 
-		 * String[] viewcolumn =
-		 * {"date","flight.id","from","to","arrival","departure","price"}; String[][]
-		 * viewrow
-		 * ={{"2018/05/26","1","Bhadrapur","Kathmandu","9:00am","2:00pm","8000"},{
-		 * "2018/05/22","2","Bhadrapur","Pokhara","8:00am","1:00pm","9000"}};
-		 * 
-		 * JTable viewtable = new JTable(viewrow,viewcolumn); JScrollPane viewsp = new
-		 * JScrollPane(viewtable); viewsp.setBounds(20,150,500,100); frame1.add(viewsp);
-		 * 
-		 * 
-		 * JLabel lbl6=new JLabel("Flight ID"); lbl6.setBounds(10,300,150,30);
-		 * frame1.add(lbl6);
-		 * 
-		 * JTextField dd3=new JTextField(); dd3.setBounds(60,300,70,30);
-		 * frame1.add(dd3);
-		 * 
-		 * JLabel lbl9=new JLabel("Nationality:"); lbl9.setBounds(10,350,150,30);
-		 * frame1.add(lbl9);
-		 * 
-		 * String[] sfilter=
-		 * {"Select","Nepal","India","Australia","America","New Zealand","Canada",
-		 * "Germany"}; JComboBox combofilter = new JComboBox(sfilter);
-		 * combofilter.setBounds(80,350,100,30); frame1.add(combofilter);
-		 * 
-		 * 
-		 * JLabel lbl7=new JLabel("Adult"); lbl7.setBounds(370,300,100,30);
-		 * frame1.add(lbl7);
-		 * 
-		 * JTextField dd4=new JTextField(); dd4.setBounds(410,300,70,30);
-		 * frame1.add(dd4);
-		 * 
-		 * JLabel lbl8=new JLabel("Child"); lbl8.setBounds(370,350,100,30);
-		 * frame1.add(lbl8);
-		 * 
-		 * JTextField dd5=new JTextField(); dd5.setBounds(410,350,70,30);
-		 * frame1.add(dd5);
-		 */		
-		JButton btn1=new JButton("Seat Available");
-		btn1.setBounds(200,450,150,50);
-		frame1.add(btn1);
-		
-		btn1.addActionListener(new ActionListener() {
-		
-			  public void actionPerformed(ActionEvent ae) {
-			  frame1.dispose();
-			  new Seat_Plan();
-			 
+		//
 
-			
-			  }
-			  
-			  });
-		
-			 
+		////
+		////
+		////
+		/////
+		//////////
+		/////////////
+
+		// information of customer is recorded in this panel ---> (panel2)
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(Color.PINK);
+		panel2.setLayout(null);
+		panel2.setBounds(850, 25, 475, 600);
+		panel1.add(panel2);
+
+		// for ticket no.
+		JLabel tnum = new JLabel("ticket no.:");
+		tnum.setBounds(0, 0, 60, 20);
+		panel2.add(tnum);
+
+		JTextField tfield = new JTextField();
+		tfield.setBounds(100, 2, 40, 20);
+		panel2.add(tfield);
+
+		// for custumer id
+
+		JLabel cid = new JLabel("customer id:");
+		cid.setBounds(0, 25, 75, 20);
+		panel2.add(cid);
+
+		JTextField cidfield = new JTextField();
+		cidfield.setBounds(100, 25, 70, 20);
+		panel2.add(cidfield);
+
+		// for customer name
+		JLabel cname = new JLabel("customer name:");
+		cname.setBounds(0, 50, 100, 20);
+		panel2.add(cname);
+
+		JTextField namefield = new JTextField();
+		namefield.setBounds(100, 50, 70, 20);
+		panel2.add(namefield);
+
+		// for father name
+		JLabel citizenship = new JLabel("Citizenship no.:");
+		citizenship.setBounds(0, 75, 100, 20);
+		panel2.add(citizenship);
+
+		JTextField citizenfield = new JTextField();
+		citizenfield.setBounds(100, 75, 70, 20);
+		panel2.add(citizenfield);
+
+		// for gender selection
+		JLabel gender = new JLabel("gender:");
+		gender.setBounds(0, 100, 70, 20);
+		panel2.add(gender);
+
+		JRadioButton male = new JRadioButton("male");
+		male.setBounds(100, 100, 70, 20);
+		panel2.add(male);
+
+		JRadioButton female = new JRadioButton("female");
+		female.setBounds(165, 100, 70, 20);
+		panel2.add(female);
+
+		ButtonGroup group1 = new ButtonGroup();
+		group1.add(male);
+		group1.add(female);
+
+		// for date of birth
+		JLabel year1 = new JLabel("D-O-B:");
+		year1.setBounds(0, 125, 40, 20);
+		panel2.add(year1);
+
+		JComboBox<Integer> cmbBox = new JComboBox<Integer>();
+		for (int k1 = 2000; k1 <= 2080; k1++) {
+			cmbBox.addItem(k1);
 		}
+		cmbBox.setBounds(100, 125, 60, 20);
+		panel2.add(cmbBox);
+
+		JComboBox<Integer> cmb1Box = new JComboBox<Integer>();
+		for (int k1 = 1; k1 <= 12; k1++) {
+			cmb1Box.addItem(k1);
+		}
+		cmb1Box.setBounds(165, 125, 40, 20);
+		panel2.add(cmb1Box);
+
+		JComboBox<Integer> cmb2 = new JComboBox<Integer>();
+		for (int k1 = 1; k1 <= 30; k1++) {
+			cmb2.addItem(k1);
+		}
+		cmb2.setBounds(205, 125, 40, 20);
+		panel2.add(cmb2);
+
+		// for phone number
+		JLabel phone = new JLabel("phone:");
+		phone.setBounds(0, 150, 60, 20);
+		panel2.add(phone);
+
+		JTextField phonefield = new JTextField();
+		phonefield.setBounds(100, 150, 60, 20);
+		panel2.add(phonefield);
+
+		// for nationality
+		JLabel nationality = new JLabel("nationality:");
+		nationality.setBounds(0, 175, 70, 20);
+		panel2.add(nationality);
+
+		String[] snationality = { "Nationality", "Nepal", "India", "Australia", "America", "New Zealand", "Canada",
+				"Germany" };
+		JComboBox<String> nationselect = new JComboBox<String>(snationality);
+		nationselect.setBounds(100, 175, 105, 20);
+		panel2.add(nationselect);
+
+		// for address
+		JLabel address = new JLabel("address:");
+		address.setBounds(0, 200, 70, 20);
+		panel2.add(address);
+
+		JTextField addressfield = new JTextField();
+		addressfield.setBounds(100, 200, 70, 20);
+		panel2.add(addressfield);
+
+		// date of journey
+
+		JLabel dateofjourney = new JLabel("date:");
+		dateofjourney.setBounds(0, 230, 40, 20);
+		panel2.add(dateofjourney);
+
+		JComboBox<Integer> cmb1Box2 = new JComboBox<Integer>();
+		for (int k1 = 2000; k1 <= 2080; k1++) {
+			cmb1Box2.addItem(k1);
+		}
+		cmb1Box2.setBounds(100, 230, 55, 20);
+		panel2.add(cmb1Box2);
+
+		JComboBox<Integer> cmb2Box = new JComboBox<Integer>();
+		for (int k1 = 1; k1 <= 12; k1++) {
+			cmb2Box.addItem(k1);
+		}
+		cmb2Box.setBounds(160, 230, 40, 20);
+		panel2.add(cmb2Box);
+
+		JComboBox<Integer> cmb3Box = new JComboBox<Integer>();
+		for (int k1 = 1; k1 <= 30; k1++) {
+			cmb3Box.addItem(k1);
+		}
+		cmb3Box.setBounds(210, 230, 40, 20);
+		panel2.add(cmb3Box);
+
+		// for flight id
+		JLabel flightid = new JLabel("flight id:");
+		flightid.setBounds(0, 260, 80, 20);
+		panel2.add(flightid);
+
+		JTextField flightidfield = new JTextField();
+		flightidfield.setBounds(100, 260, 80, 20);
+		panel2.add(flightidfield);
+
+		// for seat number
+		JLabel seatno = new JLabel("seat no.:");
+		seatno.setBounds(0, 290, 80, 20);
+		panel2.add(seatno);
+
+		JTextField seatnofield = new JTextField();
+		seatnofield.setBounds(100, 290, 50, 20);
+		panel2.add(seatnofield);
+
+		JLabel class1 = new JLabel("Class");
+		class1.setBounds(0, 320, 80, 20);
+		panel2.add(class1);
+
+		JTextField classfield = new JTextField();
+		classfield.setBounds(100, 320, 50, 20);
+		panel2.add(classfield);
+
+		// for book button
+		JButton book = new JButton("BOOK");
+		book.setBounds(140, 350, 80, 20);
+		panel2.add(book);
+
+		book.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				try {
+					// getting all field value to string to insert in sql
+					int sticketno = Integer.parseInt(tfield.getText().toString());
+					int scustomerid = Integer.parseInt(cidfield.getText().toString());
+					String sname = namefield.getText().toString();
+					int scitizenshipno = Integer.parseInt(citizenfield.getText().toString());
+					String sgender = null;
+					if (male.isSelected()) {
+						sgender = "male";
+					}
+					if (female.isSelected()) {
+						sgender = "female";
+					}
+
+					String sdateyear = cmbBox.getSelectedItem().toString();
+					String sdatemonth = cmb1Box.getSelectedItem().toString();
+					String sdateday = cmb2.getSelectedItem().toString();
+
+					// combining the date of birth to be inserted
+					String sdateofbirth = sdateyear + "/" + sdatemonth + "/" + sdateday;
+
+					int sphone = Integer.parseInt(phonefield.getText().toString());
+
+					String strnationality = nationselect.getSelectedItem().toString();
+
+					String saddress = addressfield.getText().toString();
+
+					String sdateofjourneyyear = cmb1Box2.getSelectedItem().toString();
+					String sdateofjourneymonth = cmb2Box.getSelectedItem().toString();
+					String sdateofjourneyday = cmb3Box.getSelectedItem().toString();
+					// combining the date of birth to be inserted
+					String sdateofjourney = sdateofjourneyyear + "/" + sdateofjourneymonth + "/" + sdateofjourneyday;
+
+					int sflightid = Integer.parseInt(flightidfield.getText().toString());
+
+					int sseatno = Integer.parseInt(seatnofield.getText().toString());
+					String sclassfield = classfield.getText().toString();
+
+					// got value from textfield, combobox , radiobutton.
+
+					// writing the query of sql in a string to pass in : function
+					// connect.append(sql, insert)
+					String sqlinsert = "INSERT INTO `customerdetails`(`ticketno`,`customer_id`,`name`,`citizenshipno`,`gender`,`dateofbirth`,`phone`,`nationality`,`address`,`dateofjourney`,`flightid`,`seatno`,`class`) values('"
+							+ sticketno + "','" + scustomerid + "','" + sname + "','" + scitizenshipno + "','" + sgender
+							+ "','" + sdateofbirth + "','" + sphone + "','" + strnationality + "','" + saddress + "','"
+							+ sdateofjourney + "','" + sflightid + "','" + sseatno + "','" + sclassfield + "')";
+					connect.append(sqlinsert, "inserted");
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e);
+				}
+
+			}
+		});
+
+	}
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-		
-		new New_Booking();
-	}
-	});
-	}		
-		
+
+				new New_Booking();
+			}
+		});
 	}
 
-
-
+}
+//baki
+//combobox ko adhar ma search hune.
+//table bata value text field ma aaune.
+//customer ko value customer id ma click garda auto set hune .
