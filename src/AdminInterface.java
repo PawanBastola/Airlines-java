@@ -23,7 +23,7 @@ public class AdminInterface {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		ImageIcon image1 = new ImageIcon(new ImageIcon("C:/users/killer/Desktop/dashboard.jpg").getImage()
+		ImageIcon image1 = new ImageIcon(new ImageIcon("img/dashboard.jpg").getImage()
 				.getScaledInstance(screenSize.width, screenSize.height, Image.SCALE_DEFAULT));
 		JLabel imagebackground = new JLabel(image1);
 		imagebackground.setLayout(null);

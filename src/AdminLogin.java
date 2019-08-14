@@ -33,7 +33,7 @@ public class AdminLogin {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 
-		ImageIcon image1 = new ImageIcon(new ImageIcon("C:/users/killer/Desktop/loginpage.jpg").getImage()
+		ImageIcon image1 = new ImageIcon(new ImageIcon("img/loginpage.jpg").getImage()
 				.getScaledInstance(500, 300, Image.SCALE_DEFAULT));
 		JLabel imagebackground = new JLabel(image1);
 		imagebackground.setLayout(null);

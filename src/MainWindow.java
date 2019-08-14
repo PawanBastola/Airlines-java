@@ -16,7 +16,7 @@ public class MainWindow {
 		frame1.setLayout(null);
 		frame1.setLocationRelativeTo(null);
 
-		ImageIcon imgge11 = new ImageIcon(new ImageIcon("C:/users/killer/Desktop/dashboard.jpg").getImage()
+		ImageIcon imgge11 = new ImageIcon(new ImageIcon("img/dashboard.jpg").getImage()
 				.getScaledInstance(1200, 700, Image.SCALE_DEFAULT));
 
 		JLabel panel1 = new JLabel(imgge11);
