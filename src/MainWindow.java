@@ -14,7 +14,7 @@ public class MainWindow {
 		frame1.setSize(1200, 700);
 		frame1.setVisible(true);
 		frame1.setLayout(null);
-		frame1.setLocationRelativeTo(null);
+		frame1.setLocationRelativeTo(null); 
 
 		ImageIcon imgge11 = new ImageIcon(new ImageIcon("img/dashboard.jpg").getImage()
 				.getScaledInstance(1200, 700, Image.SCALE_DEFAULT));

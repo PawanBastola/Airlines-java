@@ -20,11 +20,7 @@ public class AdminLogin {
 
 		Connect connect = new Connect();
 
-		try {
-			connect.server();
-		} catch (Exception e) {
 
-		}
 
 		JFrame frame = new JFrame("AdminLogin");
 		frame.setSize(500, 300);

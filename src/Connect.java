@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class Connect {
 
-	String driver = "com.mysql.cj.jdbc.Driver";
+	String driver = "com.mysql.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/project";
 	String un = "root";
 	String password = "";
