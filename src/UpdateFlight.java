@@ -10,7 +10,7 @@ public class UpdateFlight {
 		Connect connect = new Connect();
 
 		JFrame frame = new JFrame("Update Flight");
-		frame.setSize(300, 300);
+		frame.setSize(300, 350);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);

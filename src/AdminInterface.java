@@ -81,7 +81,7 @@ public class AdminInterface {
 
 			public void actionPerformed(ActionEvent ae) {
 
-				new SignUpForUser();
+				new Adduser();
 
 			}
 
