@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2019 at 07:51 PM
+-- Generation Time: Aug 21, 2019 at 03:12 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -40,7 +40,11 @@ CREATE TABLE `adminanduser` (
 
 INSERT INTO `adminanduser` (`userid`, `password`, `usertype`) VALUES
 ('pawan', 'admin', 'admin'),
-('nirajan', 'user', 'user');
+('nirajan', 'user', 'user'),
+('ankit', 'user', 'user'),
+('bastola', 'abcd', 'user'),
+('parash', '8828', 'admin'),
+('hari', 'hari123', 'user');
 
 -- --------------------------------------------------------
 
@@ -77,6 +81,31 @@ INSERT INTO `customerdetails` (`ticketno`, `customer_id`, `name`, `citizenshipno
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employee`
+--
+
+CREATE TABLE `employee` (
+  `empid` int(11) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` text NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `address` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`empid`, `first_name`, `last_name`, `gender`, `phone`, `email`, `date_of_birth`, `address`) VALUES
+(8, 'parash', 'bastola', 'male', '9844694958', 'parashbastola16@gmail.com', '2000-01-01', 'bhadrapur'),
+(7, 'hari', 'pyakurel', 'male', '987456894', 'hari@gmail.com', '2000-01-01', 'chandragadi');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `flightdetails`
 --
 
@@ -96,8 +125,7 @@ CREATE TABLE `flightdetails` (
 --
 
 INSERT INTO `flightdetails` (`flightid`, `from2`, `to2`, `arrival`, `departure`, `adultprice`, `childprice`, `seatno`) VALUES
-(21, 'bhadrapur', 'kathmandu', '10:30:00', '12:00:00', 2000, 1000, 54),
-(123, 'bhadrapur', 'kathmandu', '10:00:00', '11:00:00', 6789, 567, 54);
+(21, 'bhadrapur', 'bhaktapur', '10:30:00', '12:00:00', 2000, 1000, 54);
 
 -- --------------------------------------------------------
 
