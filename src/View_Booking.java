@@ -93,15 +93,15 @@ public class View_Booking {
 		});
 
 		update.addActionListener(new ActionListener() {
-			String tno;
+			String cuid;
 
 			public void actionPerformed(ActionEvent ae) {
 				int[] row = viewtable.getSelectedRows();
 				for (int i = 0; i < row.length; i++) {
-					tno = (String) viewtable.getValueAt(row[i], 0);
+					cuid = (String) viewtable.getValueAt(row[i], 1);
 
 				}
-				new update_delete_customerdetails(tno);
+				new update_delete_customerdetails(cuid);
 			}
 		});
 
