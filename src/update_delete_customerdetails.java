@@ -216,19 +216,27 @@ public class update_delete_customerdetails {
 
 				String dateofbirthtobeset = rs.getString(6).toString();
 
-				int start = 0;
-				int end = 4;
-				char year[] = new char[end - start];
-				dateofbirthtobeset.getChars(start, end, year, 0);
-
-				char month[] = new char[7 - 5];
-				dateofbirthtobeset.getChars(5, 7, month, 0);
-				char day[] = new char[10 - 8];
-				dateofbirthtobeset.getChars(8, 10, day, 0);
-
-				cmbBox.setSelectedItem(year);
-				cmb1Box.setSelectedItem(month);
-				cmb2.setSelectedItem(day);
+//				int start = 0;
+//				int end = 4;
+//				char year[] = new char[end - start];
+//                                dateofbirthtobeset.getChars(start, end, year, 0);
+//                                String yr=String.valueOf(year);
+//                                
+//				char month[] = new char[7 - 5];
+//				dateofbirthtobeset.getChars(5, 7, month, 0);
+//                                String mth=String.valueOf(month);
+//                                
+//				char day[] = new char[10 - 8];
+//				dateofbirthtobeset.getChars(8, 10, day, 0);
+//                                String dy =String.valueOf(day);
+                                int yr=Integer.parseInt(dateofbirthtobeset.substring(0,4));
+                                System.out.println(yr);
+                                
+                                
+                                
+				cmbBox.setSelectedItem(yr);
+//				cmb1Box.setSelectedItem(mth);
+//				cmb2.setSelectedItem(dy);
 				//
 				///
 				//
