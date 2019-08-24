@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 
 import javax.swing.ButtonGroup;
@@ -75,11 +77,12 @@ public class New_Booking {
 		JLabel lbl1 = new JLabel("To :");
 		lbl1.setBounds(190, 25, 30, 30);
 		panel1.add(lbl1);
-		try {
+		
 			// copy
 			JComboBox<String> locationto = new JComboBox<String>();
 			locationto.setBounds(230, 25, 120, 30);
 			panel1.add(locationto);
+			try {
 			String sqllocationinput = "SELECT * FROM location";
 			ResultSet rs = connect.display(sqllocationinput);
 			while (rs.next()) {
@@ -108,18 +111,16 @@ public class New_Booking {
 
 		panel1.add(viewsp);
 
-		try {
-			String sql = "SELECT * FROM flightdetails";
-			ResultSet rs = connect.display(sql);
-			while (rs.next()) {
-				autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8) });
-			}
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e);
-		}
-
+		
+		/*
+		 * try { String sql = "SELECT * FROM flightdetailsz"; ResultSet rs =
+		 * connect.display(sql); while (rs.next()) { autotablerow.addRow(new String[] {
+		 * rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+		 * rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8) }); }
+		 * 
+		 * } catch (Exception e) { JOptionPane.showMessageDialog(null, e); }
+		 */
+ 
 		viewsp.setBounds(5, 70, 800, 400);
 		panel1.add(viewsp);
 
@@ -133,27 +134,48 @@ public class New_Booking {
 		/////
 		//////////
 		/////////////
-		/*
-		 * locationfrom.addItemListener(new ItemListener() { public void
-		 * itemStateChanged(ItemEvent ii) { String sqllocation; if (ii.getStateChange()
-		 * == ItemEvent.SELECTED) { sqllocation =
-		 * "SELECT * FROM `flightdetails` WHERE `from2`='" +
-		 * locationfrom.getSelectedItem().toString() + "'"; } else sqllocation =
-		 * "SELECT * FROM `flightdetails`";
-		 * 
-		 * try { ResultSet rs = connect.display(sqllocation); viewsp.repaint();
-		 * autotablerow.getDataVector().removeAllElements();
-		 * 
-		 * while (rs.next()) { autotablerow.addRow(new String[] { rs.getString(1),
-		 * rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-		 * rs.getString(6), rs.getString(7), rs.getString(8), });
-		 * 
-		 * } } catch (Exception ee) { ee.printStackTrace(); } }
-		 * 
-		 * }
-		 * 
-		 * );
-		 */
+try {
+	String sqllocation1 = "SELECT * FROM `flightdetails`";
+
+	
+	ResultSet rs = connect.display(sqllocation1);
+	viewsp.repaint();
+	autotablerow.getDataVector().removeAllElements();
+
+	while (rs.next()) {
+		autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3),
+				rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), });
+	
+} }catch (Exception e) {
+	JOptionPane.showMessageDialog(null, e);
+}
+		
+		locationto.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent ie) {
+				try {
+				String sqllocation;
+				if (ie.getStateChange() == ItemEvent.SELECTED) {
+					sqllocation = "SELECT * FROM `flightdetails` WHERE `from2`='"+ locationfrom.getSelectedItem().toString() + "' AND to2='"+locationto.getSelectedItem().toString()+"'";
+				
+				
+					ResultSet rs = connect.display(sqllocation);
+					viewsp.repaint();
+					autotablerow.getDataVector().removeAllElements();
+
+					while (rs.next()) {
+						autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3),
+								rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), });
+
+					}
+				}} catch (Exception ee) {
+					ee.printStackTrace();
+				}
+			}
+
+		}
+
+		);
+ 
 		//
 
 		////
