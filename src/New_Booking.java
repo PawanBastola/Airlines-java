@@ -93,8 +93,31 @@ public class New_Booking {
 		} catch (Exception abc) {
 			JOptionPane.showMessageDialog(null, abc);
 		}
-
-		// copy
+			// no of seat jlable and jtextfield to be passed through constructor to newpractice();
+			//label
+			JLabel noofseat = new JLabel("no of seat");
+			noofseat.setBounds(350,25,150,20);
+			panel1.add(noofseat);
+			
+			
+			//textfield
+			JTextField noofseatfield = new JTextField(1);
+			noofseatfield.setBounds(510,25,40,20);
+			panel1.add(noofseatfield);
+			
+			//practice book buttom
+			
+			JButton addinfo = new JButton("addinfo");
+			addinfo.setBounds(560,25,70,20);
+			panel1.add(addinfo);
+			
+			addinfo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ae) {
+					int totalseat =Integer.parseInt(noofseatfield.getText().toString());
+					new newpractice(totalseat);
+				}
+			});
+		
 
 		// sql code
 
@@ -429,6 +452,6 @@ try {
 
 }
 //baki
-//combobox ko adhar ma search hune.
+//combobox ko adhar ma search hune vayo done.
 //table bata value text field ma aaune.
 //customer ko value customer id ma click garda auto set hune .
