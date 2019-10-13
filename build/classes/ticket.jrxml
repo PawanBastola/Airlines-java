@@ -1,29 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f72e931c-4796-4893-a874-5a5679292499">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tno" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$P{tno}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ticketvar" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT customerdetails.ticketno,flightdetails.departure,flightdetails.arrival,customerdetails.name,customerdetails.dateofjourney,customerdetails.flightid,customerdetails.seatno FROM customerdetails INNER JOIN flightdetails on  customerdetails.flightid=flightdetails.flightid WHERE customerdetails.ticketno=22;]]>
+	</queryString>
+	<field name="ticketno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="departure" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="arrival" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dateofjourney" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="flightid" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="seatno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="399" height="54" uuid="fea679ec-9bf8-43ac-89dc-0cc370602e4d"/>
+				<textElement textAlignment="Center">
+					<font size="36" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[NEPAL AIRLINES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="15" width="91" height="20" uuid="3e12fad7-3feb-41b4-a9df-3cfda6850d35"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Board pass]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="54" height="20" uuid="57f570bc-8bf8-4cba-9644-6f135bb2f909"/>
+				<text><![CDATA[Ticket no:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="54" height="20" uuid="dadd07ed-569c-48ed-a6fb-ba71016ad40f"/>
+				<text><![CDATA[Departure :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="54" height="20" uuid="6854d359-6aa7-4994-8558-66585379ed3e"/>
+				<text><![CDATA[Arrival :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="1" width="40" height="20" uuid="5b75893d-bfc2-429d-a5f1-d31b62f5c888"/>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="21" width="40" height="20" uuid="df3a5318-6c7d-48b7-a7b3-4cb4f486ccd8"/>
+				<text><![CDATA[Seat no:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="-54" width="4" height="54" uuid="ba07ba09-80b1-46d5-89b1-8a147bd39dbb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="2" width="0" height="103" uuid="1c33296c-264b-406d-950a-88e8451367fd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="20" width="100" height="20" uuid="b8e06d01-1d39-41d2-a185-2e5a231da82e"/>
+				<textFieldExpression><![CDATA[$F{departure}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="0" width="100" height="20" uuid="da73f77e-8bd7-479f-8704-6f0a765b6ca2"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="40" width="100" height="20" uuid="f9fe88f8-a981-426a-b7df-d4a9b0a77b6e"/>
+				<textFieldExpression><![CDATA[$F{arrival}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="0" width="100" height="20" uuid="28752bf3-5f55-4ad6-b554-c30eb1eb9a7d"/>
+				<textFieldExpression><![CDATA[$F{ticketno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="247" y="20" width="100" height="20" uuid="c9566df0-20f6-4aaa-b250-e4bed67bafea"/>
+				<textFieldExpression><![CDATA[$F{seatno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="0" width="100" height="20" uuid="6f6e9fe2-66b5-4e02-993f-89444fae7a8f"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="1" width="40" height="20" uuid="d6fe6e87-8847-4f87-b33d-26fcc5a63ab2"/>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="21" width="40" height="20" uuid="f3fefdab-3eab-4b41-9801-c5fcc3edda31"/>
+				<text><![CDATA[Seat no:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="20" width="100" height="20" uuid="dd43e95e-b25e-406d-9991-ffac531787a1"/>
+				<textFieldExpression><![CDATA[$F{seatno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="44" width="77" height="20" uuid="b9551259-535c-4045-b03c-708ba554c7b0"/>
+				<textFieldExpression><![CDATA[$F{ticketno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="381" y="44" width="47" height="20" uuid="bd90e753-2170-4a73-b983-3e82b308231e"/>
+				<text><![CDATA[Ticket no:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="64" width="54" height="36" uuid="ea3becea-73f2-4f04-af6f-18aee8b961c7"/>
+				<text><![CDATA[Date of journey:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="64" width="100" height="20" uuid="9e74858a-89f3-47ce-821c-7c9ac695d3be"/>
+				<textFieldExpression><![CDATA[$F{dateofjourney}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
 </jasperReport>

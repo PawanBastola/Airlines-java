@@ -69,30 +69,30 @@ public class update_delete_customerdetails {
 		group1.add(female);
 
 		// for date of birth
-		JLabel year1 = new JLabel("D-O-B:");
-		year1.setBounds(10, 95, 40, 20);
-		panel1.add(year1);
-
-		JComboBox<Integer> cmbBox = new JComboBox<Integer>();
-		for (int k1 = 2000; k1 <= 2080; k1++) {
-			cmbBox.addItem(k1);
-		}
-		cmbBox.setBounds(110, 95, 60, 20);
-		panel1.add(cmbBox);
-
-		JComboBox<Integer> cmb1Box = new JComboBox<Integer>();
-		for (int k1 = 1; k1 <= 12; k1++) {
-			cmb1Box.addItem(k1);
-		}
-		cmb1Box.setBounds(175, 95, 40, 20);
-		panel1.add(cmb1Box);
-
-		JComboBox<Integer> cmb2 = new JComboBox<Integer>();
-		for (int k1 = 1; k1 <= 30; k1++) {
-			cmb2.addItem(k1);
-		}
-		cmb2.setBounds(220, 95, 40, 20);
-		panel1.add(cmb2);
+//		JLabel year1 = new JLabel("D-O-B:");
+//		year1.setBounds(10, 95, 40, 20);
+//		panel1.add(year1);
+//
+//		JComboBox<Integer> cmbBox = new JComboBox<Integer>();
+//		for (int k1 = 2000; k1 <= 2080; k1++) {
+//			cmbBox.addItem(k1);
+//		}
+//		cmbBox.setBounds(110, 95, 60, 20);
+//		panel1.add(cmbBox);
+//
+//		JComboBox<Integer> cmb1Box = new JComboBox<Integer>();
+//		for (int k1 = 1; k1 <= 12; k1++) {
+//			cmb1Box.addItem(k1);
+//		}
+//		cmb1Box.setBounds(175, 95, 40, 20);
+//		panel1.add(cmb1Box);
+//
+//		JComboBox<Integer> cmb2 = new JComboBox<Integer>();
+//		for (int k1 = 1; k1 <= 30; k1++) {
+//			cmb2.addItem(k1);
+//		}
+//		cmb2.setBounds(220, 95, 40, 20);
+//		panel1.add(cmb2);
 
 //
 		// for phone number
@@ -169,13 +169,7 @@ public class update_delete_customerdetails {
 		seatnofield.setBounds(110, 275, 50, 20);
 		panel1.add(seatnofield);
 
-		JLabel class1 = new JLabel("Class");
-		class1.setBounds(10, 305, 80, 20);
-		panel1.add(class1);
-
-		JTextField classfield = new JTextField();
-		classfield.setBounds(110, 305, 50, 20);
-		panel1.add(classfield);
+		
 
 		JButton update1 = new JButton("Update");
 		update1.setBounds(110, 335, 80, 20);
@@ -187,36 +181,44 @@ public class update_delete_customerdetails {
 			while (rs.next()) {
 				
 				
-				namefield.setText(rs.getString(3).toString());
-				citizenfield.setText(rs.getString(4).toString());
+				namefield.setText(rs.getString(2).toString());
+				citizenfield.setText(rs.getString(3).toString());
 				// gender
-				if (rs.getString(5).equals("male")) {
+				if (rs.getString(4).equals("male")) {
 					male.setSelected(true);
 				} else
 					female.setSelected(true);
 				// gender
 
-				String dateofbirthtobeset = rs.getString(6).toString();
-				int yr = Integer.parseInt(dateofbirthtobeset.substring(0, 4));
-				cmbBox.setSelectedItem(yr);
+//				String dateofbirthtobeset = rs.getString(6).toString();
+//				int yr = Integer.parseInt(dateofbirthtobeset.substring(0, 4));
+//				cmbBox.setSelectedItem(yr);
+//
+//				int mth = Integer.parseInt(dateofbirthtobeset.substring(5, 7));
+//				cmb1Box.setSelectedItem(mth);
+//
+//				int dy = Integer.parseInt(dateofbirthtobeset.substring(8, 10));
+//				cmb2.setSelectedItem(dy);
 
-				int mth = Integer.parseInt(dateofbirthtobeset.substring(5, 7));
-				cmb1Box.setSelectedItem(mth);
-
-				int dy = Integer.parseInt(dateofbirthtobeset.substring(8, 10));
-				cmb2.setSelectedItem(dy);
-
-				phonefield.setText(rs.getString(7).toString());
+				phonefield.setText(rs.getString(5).toString());
 
 				// nation
-				String nationstring = rs.getString(8).toString();
+				String nationstring = rs.getString(6).toString();
 				nationselect.setSelectedItem(nationstring);
 				// nation
-				addressfield.setText(rs.getString(9).toString());
+				addressfield.setText(rs.getString(7).toString());
 
 				// date of journey
-
-				String dateofjourneytobeset = rs.getString(10).toString();
+			}} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
+                        try{
+                        String sqlsearchname1 = "SELECT * FROM `ticketdetails` where `cid`='" + cuid + "'";
+			ResultSet ps = connect.display(sqlsearchname1);
+			while (ps.next()) {
+			
+                        
+                        String dateofjourneytobeset = ps.getString(5).toString();
 
 				int jyear = Integer.parseInt(dateofjourneytobeset.substring(0, 4));
 				cmb1Box2.setSelectedItem(jyear);
@@ -228,15 +230,13 @@ public class update_delete_customerdetails {
 				cmb3Box.setSelectedItem(jday);
 
 				// date of journey
-				flightidfield.setText(rs.getString(11).toString());
-				seatnofield.setText(rs.getString(12).toString());
-				classfield.setText(rs.getString(13).toString());
-
-			}
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e);
-		}
+				flightidfield.setText(ps.getString(3).toString());
+				seatnofield.setText(ps.getString(4).toString());
+                        }
+                        }catch(Exception e){
+                            JOptionPane.showMessageDialog(null,e);
+                        }
+		
 		
 		
 		update1.addActionListener(new ActionListener() {
@@ -253,11 +253,11 @@ public class update_delete_customerdetails {
 					updategender = "female";
 				}		//end of gender  
 				//date of birth
-				String updateyear = String.valueOf(cmbBox.getSelectedItem());
-				String updatemonth = String.valueOf(cmb1Box.getSelectedItem());
-				String updateday = String.valueOf(cmb2.getSelectedItem()); // concated date of birth String
-				String updatedob = updateyear + "/" + updatemonth + "/" + updateday;
-				//end date of birth
+//				String updateyear = String.valueOf(cmbBox.getSelectedItem());
+//				String updatemonth = String.valueOf(cmb1Box.getSelectedItem());
+//				String updateday = String.valueOf(cmb2.getSelectedItem()); // concated date of birth String
+//				String updatedob = updateyear + "/" + updatemonth + "/" + updateday;
+//				//end date of birth
 				
 				//phonefield
 				int updatephonefield = Integer.parseInt(phonefield.getText().toString());
@@ -281,17 +281,25 @@ public class update_delete_customerdetails {
 				//seatno
 				 int sseatnofield = Integer.parseInt(seatnofield.getText());
 				
-				 //class
-				 String sclassfield = classfield.getText().toString();
+				 
+				 
 				
-				String sqlupdate = "UPDATE `customerdetails` SET `class`='" + sclassfield + "',`seatno`='"
+				String sqlupdate = "UPDATE `ticketdetails` SET `seatno`='"
 						+ sseatnofield + "',`flightid`='" + updateflightidfield + "',`dateofjourney`='"
-						+ updatejourneydate + "',`address`='" + updateaddressfield + "',`nationality`='"
-						+ updatenationality + "',`phone`='" + updatephonefield + "',`dateofbirth`='" + updatedob
-						+ "',`gender`='" + updategender + "',`name`='" + updatenamefield + "', `citizenshipno`='"
+						+ updatejourneydate + "' WHERE `cid`='" + cuid + "' ";
+                                connect.insert(sqlupdate);
+				
+                                String sqlupdate1 = "UPDATE `customerdetails` SET `address`='" + updateaddressfield + "',`nationality`='"
+						+ updatenationality + "',`phone`='" + updatephonefield + "',`gender`='" + updategender + "',`name`='" + updatenamefield + "', `citizenshipno`='"
 						+ updatecitizenfield + "' WHERE `customer_id`='" + cuid + "' ";
-				connect.append(sqlupdate, "updated");
-			}
+				
+                                
+                                connect.append(sqlupdate1, "updated");
+                                frame.dispose();
+                                new View_Booking();
+                                
+                                
+                                			}
 
 		});
 

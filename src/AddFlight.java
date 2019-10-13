@@ -1,9 +1,15 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import javax.swing.*;
 
 public class AddFlight {
+    void clear(JTextField objname){
+        objname.setText("");
+    }
+    
+    
 	public AddFlight() {
 		Connect connect = new Connect();
 		
@@ -35,20 +41,51 @@ public class AddFlight {
 				from.setBounds(5,40,80,30);
 				frame.add(from);
 				
-				JTextField tfrom = new JTextField();
-				tfrom.setBounds(90,45,80,20);
-				frame.add(tfrom);
-				
+                                
+                                
+                                //
+                                	JComboBox<String> Cfrom = new JComboBox<String>();
+			Cfrom.setBounds(90,45,80,20);
+			frame.add(Cfrom);
+			try {
+			String sqllocationinput = "SELECT * FROM location";
+			ResultSet rs = connect.display(sqllocationinput);
+			while (rs.next()) {
+				Cfrom.addItem(rs.getString(1));
+
+			}
+
+		} catch (Exception abc) {
+			JOptionPane.showMessageDialog(null, abc);
+		}
+
+                                
+                                
+				//
+                        JLabel to = new JLabel("To");
+				to.setBounds(5,70,80,30);
+				frame.add(to);
+                                
+                        JComboBox<String> Cto = new JComboBox<String>();
+			Cto.setBounds(90,75,80,20);
+			frame.add(Cto);
+			try {
+			String sqllocationinput = "SELECT * FROM location";
+			ResultSet rs = connect.display(sqllocationinput);
+			while (rs.next()) {
+				Cto.addItem(rs.getString(1));
+
+			}
+
+		} catch (Exception abc) {
+			JOptionPane.showMessageDialog(null, abc);
+		}
+                        //
 				
 				
 				//new
-				JLabel to = new JLabel("To");
-				to.setBounds(5,70,80,30);
-				frame.add(to);
 				
-				JTextField tto = new JTextField();
-				tto.setBounds(90,75,80,20);
-				frame.add(tto);
+				
 				
 				
 				
@@ -86,24 +123,15 @@ public class AddFlight {
 				
 				
 				//new
-				JLabel cprice= new JLabel("Child price");
-				cprice.setBounds(5,190,80,30);
-				frame.add(cprice);
-				
-				
-				
-				JTextField tcprice = new JTextField();
-				tcprice.setBounds(90,195,80,20);
-				frame.add(tcprice);
 				
 				
 				
 				JLabel seat=new JLabel("Seats");
-				seat.setBounds(5,220,80,30);
+				seat.setBounds(5,190,80,30);
 				frame.add(seat);
 				
 				JTextField texts=new JTextField();
-				texts.setBounds(90,225,80,20);
+				texts.setBounds(90,195,80,20);
 				frame.add(texts);		
 				
 				
@@ -127,20 +155,25 @@ public class AddFlight {
 							
 							
 							  String sflightid = tflightid.getText().toString(); 
-							  String sfrom =  tfrom.getText().toString();
-							  String stto = tto.getText().toString();
+							  String sfrom =  Cfrom.getSelectedItem().toString();
+							  String stto = Cto.getSelectedItem().toString();
 							  String starrival = tarrival.getText().toString();
 							  String stdeparture = tdeparture.getText().toString();
 							  int staprice=  Integer.parseInt(taprice.getText().toString());
-							  int scprice= Integer.parseInt(tcprice.getText().toString());
+							  
 							  int sseat= Integer.parseInt(texts.getText().toString());
 							  
-							  String sqlins="INSERT INTO flightdetails(`flightid`,`from2`,`to2`,`arrival`,`departure`,`adultprice`,	`childprice`,`seatno`) VALUES('"+sflightid+"','"+sfrom+"','"+stto+"','"+starrival+"','"+stdeparture+"','"+staprice+"','"+scprice+"','"+sseat+"')";
+							  String sqlins="INSERT INTO flightdetails(`flightid`,`from2`,`to2`,`arrival`,`departure`,`price`,`seatno`) VALUES('"+sflightid+"','"+sfrom+"','"+stto+"','"+starrival+"','"+stdeparture+"','"+staprice+"','"+sseat+"')";
 								
 							  
 							  //string collection ends here			
 							connect.append(sqlins, "inserted");
-							
+                                                        clear(tflightid);
+                                                        clear(tarrival);
+                                                        clear(tdeparture);
+                                                        clear(taprice);
+                                                        clear(texts);
+                                                                                                                
 						}catch(Exception e) {
 							JOptionPane.showMessageDialog(null,e);
 						}

@@ -44,7 +44,7 @@ public class View_Details {
 		// `flightid`,`from2`,`to2`,`arrival`,`departure`,`adultprice`,
 		// `childprice`,`seatno`
 		DefaultTableModel autotablerow = new DefaultTableModel();
-		String[] viewcolumn = { "flightid", "from", "to", "arrival", "departure", "adultprice", "childprice", "seat" };
+		String[] viewcolumn = { "flightid", "from", "to", "arrival", "departure", "price", "seat" };
 
 		JTable viewtable = new JTable();
 		autotablerow.setColumnIdentifiers(viewcolumn);
@@ -60,7 +60,7 @@ public class View_Details {
 			ResultSet rs = connect.display(sql);
 			while (rs.next()) {
 				autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8) });
+						rs.getString(5), rs.getString(6), rs.getString(7) });
 			}
 
 		} catch (Exception e) {
@@ -87,7 +87,7 @@ public class View_Details {
 
 					while (rs.next()) {
 						autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3),
-								rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), });
+								rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7) });
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -103,7 +103,9 @@ public class View_Details {
 				for (int i = 0; i < row.length; i++) {
 					id = (String) viewtable.getValueAt(row[i], 0);
 				}
-				new UpdateFlight(id);
+				frame.dispose();
+                                new UpdateFlight(id);
+                                
 			}
 		});
 		JButton delete = new JButton("DELETE");
@@ -124,6 +126,22 @@ public class View_Details {
 
 					String sqldel = "DELETE FROM `flightdetails` where `flightid`='" + tno + "' ";
 					connect.append(sqldel, "cancel");
+                                        
+                                         viewtable.repaint();
+                                        autotablerow.getDataVector().removeAllElements();
+                                        String stringsql2="SELECT * FROM `flightdetails`";
+                                        try {
+					ResultSet rs = connect.display(stringsql2);
+					viewsp.repaint();
+					autotablerow.getDataVector().removeAllElements();
+
+					while (rs.next()) {
+						autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3),
+								rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)});
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				}
 			}
 		});

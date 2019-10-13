@@ -53,7 +53,7 @@ public class UpdateFlight {
 		frame.add(tdeparture);
 
 		// new
-		JLabel aprice = new JLabel("Adult price");
+		JLabel aprice = new JLabel("Price");
 		aprice.setBounds(5, 160, 80, 30);
 		frame.add(aprice);
 
@@ -61,27 +61,20 @@ public class UpdateFlight {
 		taprice.setBounds(90, 165, 80, 20);
 		frame.add(taprice);
 
-		// new
-		JLabel cprice = new JLabel("Child price");
-		cprice.setBounds(5, 190, 80, 30);
-		frame.add(cprice);
-
-		JTextField tcprice = new JTextField();
-		tcprice.setBounds(90, 195, 80, 20);
-		frame.add(tcprice);
+		
 
 		JLabel seat = new JLabel("Seats");
-		seat.setBounds(5, 220, 80, 30);
+		seat.setBounds(5, 190, 80, 30);
 		frame.add(seat);
 
 		JTextField seatfield = new JTextField();
-		seatfield.setBounds(90, 225, 80, 20);
+		seatfield.setBounds(90, 195, 80, 20);
 		frame.add(seatfield);
 
 		// new buttons\
 
 		JButton updateflights = new JButton("Update");
-		updateflights.setBounds(200, 270, 80, 20);
+		updateflights.setBounds(5, 220, 80, 30);
 		frame.add(updateflights);
 
 		try {
@@ -94,8 +87,7 @@ public class UpdateFlight {
 				tarrival.setText(rs.getString(4).toString());
 				tdeparture.setText(rs.getString(5).toString());
 				taprice.setText(rs.getString(6).toString());
-				tcprice.setText(rs.getString(7).toString());
-				seatfield.setText(rs.getString(8).toString());
+				seatfield.setText(rs.getString(7).toString());
 
 			}
 
@@ -110,14 +102,17 @@ public class UpdateFlight {
 				String updatearrival = tarrival.getText().toString();
 				String updatedeparture = tdeparture.getText().toString();
 				int updateaprice = Integer.parseInt(taprice.getText().toString());
-				int updatecprice = Integer.parseInt(tcprice.getText().toString());
+				
 				String updateseat = seatfield.getText().toString();
 
 				String sqlupdate = "UPDATE `flightdetails` SET `from2`='" + updatefrom + "',`to2`='" + updateto
-						+ "',`arrival`='" + updatearrival + "',`departure`='" + updatedeparture + "',`adultprice`='"
-						+ updateaprice + "',`childprice`='" + updatecprice + "',`seatno`='" + updateseat
+						+ "',`arrival`='" + updatearrival + "',`departure`='" + updatedeparture + "',`price`='"
+						+ updateaprice + "',`seatno`='" + updateseat
 						+ "' WHERE `flightid`='" + id + "' ";
 				connect.append(sqlupdate, "updated");
+                                
+                                frame.dispose();
+                                new View_Details("admin");
 			}
 
 		});

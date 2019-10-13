@@ -39,24 +39,22 @@ public class AdminInterface {
 		mb.add(menu1);
 		JMenuItem item1a = new JMenuItem("New Booking");
 		menu1.add(item1a);
-		JMenuItem item3a=new JMenuItem("Ticket Enquiry");
-		menu1.add(item3a);
+//		JMenuItem item3a=new JMenuItem("Ticket Enquiry");
+//		menu1.add(item3a);
 		mb.add(menu1);
 		item1a.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent ae) {
-
 				new New_Booking();
-
+                                
 			}
 		});
 
 		 
-		item3a.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				new Enquiry();
-			}
-		});
+//		item3a.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent ae) {
+//				new Enquiry();
+//			}
+//		});
 
 		JMenu menu2 = new JMenu("View Booking     ");
 		JMenuItem item4a = new JMenuItem("Traverse Details");

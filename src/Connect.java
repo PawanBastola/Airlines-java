@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class Connect {
 
 	String driver = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/project";
+	String url = "jdbc:mysql://localhost:3306/reproject";
 	String un = "root";
 	String password = "";
 	Connection conn;
@@ -54,6 +54,21 @@ public class Connect {
 		}
 	}
 
+        
+        public void appendwithmessage(String sql, String msg) {
+		try {
+			getConnect();
+			s.execute(sql);
+			JOptionPane.showMessageDialog(null, msg);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+        
+        
+        
+        
+        
 	public ResultSet display(String sql) {
 		ResultSet rs = null;
 		try {
@@ -66,4 +81,25 @@ public class Connect {
 		return rs;
 
 	}
-}
+        public void insert(String sql){
+            try{
+                getConnect();
+                s.execute(sql);
+                
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
+            }
+        }
+        
+        public void delete(String sql){
+            try{
+                getConnect();
+                s.execute(sql);
+                
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e.getMessage());
+            }
+        }
+       
+        }
+

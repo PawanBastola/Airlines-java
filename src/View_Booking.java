@@ -35,8 +35,8 @@ public class View_Booking {
 		frame.add(searchfield);
 
 		DefaultTableModel autotablerow = new DefaultTableModel();
-		String[] viewcolumn = { "Ticketno", "CID", "C.Name", "Citizen", "Gender", "D.O.B", "Phone", "Nationality",
-				"Address", "Date", "Flight Id", "Seat No", "Class" };
+		String[] viewcolumn = { "Ticketno", "CID", "C.Name", "Citizen", "Gender", "Phone", "Nationality",
+				"Address", "Date", "Flight Id", "Seat No", };
 
 		JTable viewtable = new JTable();
 		autotablerow.setColumnIdentifiers(viewcolumn);
@@ -48,12 +48,12 @@ public class View_Booking {
 		frame.add(viewsp);
 
 		try {
-			String sql = "SELECT * FROM customerdetails";
+			String sql = "Select ticketdetails.tno,customerdetails.customer_id,customerdetails.name,customerdetails.citizenshipno,customerdetails.gender,customerdetails.phone,customerdetails.nationality,customerdetails.address,ticketdetails.dateofjourney,ticketdetails.flightid,ticketdetails.seatno FROM customerdetails INNER join ticketdetails on customerdetails.customer_id=ticketdetails.cid";
 			ResultSet rs = connect.display(sql);
 			while (rs.next()) {
 				autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),
-						rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13) });
+						rs.getString(10), rs.getString(11) });
 			}
 
 		} catch (Exception e) {
@@ -68,11 +68,11 @@ public class View_Booking {
 			public void keyReleased(KeyEvent ef) {
 				String sql;
 				if (searchfield.getText().length() != 0) {
-					sql = "SELECT * FROM `customerdetails` WHERE `customer_id` LIKE '"
+					sql = "Select ticketdetails.tno,customerdetails.customer_id,customerdetails.name,customerdetails.citizenshipno,customerdetails.gender,customerdetails.phone,customerdetails.nationality,customerdetails.address,ticketdetails.dateofjourney,ticketdetails.flightid,ticketdetails.seatno FROM customerdetails INNER join ticketdetails on customerdetails.customer_id=ticketdetails.cid WHERE `customer_id` LIKE '"
 							+ Integer.parseInt(searchfield.getText().toString()) + "%'|| `phone` LIKE'"
 							+ Integer.parseInt(searchfield.getText().toString()) + "%'";
 				} else {
-					sql = "SELECT * FROM `customerdetails`";
+					sql = "Select ticketdetails.tno,customerdetails.customer_id,customerdetails.name,customerdetails.citizenshipno,customerdetails.gender,customerdetails.phone,customerdetails.nationality,customerdetails.address,ticketdetails.dateofjourney,ticketdetails.flightid,ticketdetails.seatno FROM customerdetails INNER join ticketdetails on customerdetails.customer_id=ticketdetails.cid";
 				}
 
 				try {
@@ -83,8 +83,7 @@ public class View_Booking {
 					while (rs.next()) {
 						autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3),
 								rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
-								rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12),
-								rs.getString(13) });
+								rs.getString(9), rs.getString(10), rs.getString(11)});
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -102,6 +101,8 @@ public class View_Booking {
 
 				}
 				new update_delete_customerdetails(cuid);
+                                frame.dispose();
+                                
 			}
 		});
 
@@ -110,15 +111,35 @@ public class View_Booking {
 		frame.add(cancel);
 
 		cancel.addActionListener(new ActionListener() {
-			String tno;
+			String ciddel;
 
 			public void actionPerformed(ActionEvent ae) {
 				int[] row = viewtable.getSelectedRows();
 				for (int i = 0; i < row.length; i++) {
-					tno = (String) viewtable.getValueAt(row[i], 0);
+					ciddel = (String) viewtable.getValueAt(row[i], 1);
 
-					String sqldel = "DELETE FROM `customerdetails` where `ticketno`='" + tno + "'";
-					connect.append(sqldel, "cancel");
+					String customersqldel = "DELETE FROM `customerdetails` where `customer_id`='" +ciddel+ "'";
+                                        String ticketdel="DELETE FROM `customerdetails` where `cid`='" +ciddel+ "'";
+                                        
+                                        connect.delete(customersqldel);
+                                        
+					connect.appendwithmessage(customersqldel, "ticket cancelled");
+                                        viewtable.repaint();
+                                        autotablerow.getDataVector().removeAllElements();
+                                        String stringsql2="SELECT * FROM `customerdetails`";
+                                        try {
+					ResultSet rs = connect.display(stringsql2);
+					viewsp.repaint();
+					autotablerow.getDataVector().removeAllElements();
+
+					while (rs.next()) {
+						autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3),
+								rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
+								rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12) });
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				}
 			}
 		});
