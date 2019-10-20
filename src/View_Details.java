@@ -12,13 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class View_Details {
 	View_Details(String usertype) {
 		Connect connect = new Connect();
 
-		JFrame frame = new JFrame("View details");
+		JFrame frame = new JFrame("View Flight");
 		frame.setSize(800, 500);
 		frame.setLayout(null);
 		frame.setVisible(true);
@@ -44,7 +45,7 @@ public class View_Details {
 		// `flightid`,`from2`,`to2`,`arrival`,`departure`,`adultprice`,
 		// `childprice`,`seatno`
 		DefaultTableModel autotablerow = new DefaultTableModel();
-		String[] viewcolumn = { "flightid", "from", "to", "arrival", "departure", "price", "seat" };
+		String[] viewcolumn = { "flightid","planeid", "from", "to", "departure", "arrival", "price" };
 
 		JTable viewtable = new JTable();
 		autotablerow.setColumnIdentifiers(viewcolumn);
@@ -56,7 +57,7 @@ public class View_Details {
 		frame.add(viewsp);
 
 		try {
-			String sql = "SELECT * FROM flightdetails";
+			String sql = "SELECT * FROM flight";
 			ResultSet rs = connect.display(sql);
 			while (rs.next()) {
 				autotablerow.addRow(new String[] { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
@@ -74,10 +75,10 @@ public class View_Details {
 			public void keyReleased(KeyEvent e) {
 				String sql;
 				if (searchfield.getText().length() != 0) {
-					sql = "SELECT * FROM `flightdetails` WHERE `flightid` LIKE '" + searchfield.getText().toString()
-							+ "%'|| `from2` LIKE'" + searchfield.getText().toString() + "%'";
+					sql = "SELECT * FROM `flight` WHERE `fid` LIKE '" + searchfield.getText().toString()
+							+ "%'";
 				} else {
-					sql = "SELECT * FROM `flightdetails`";
+					sql = "SELECT * FROM `flight`";
 				}
 
 				try {
@@ -96,15 +97,15 @@ public class View_Details {
 		});
 
 		update.addActionListener(new ActionListener() {
-			String id;
+			String flightid;
 
 			public void actionPerformed(ActionEvent ae) {
 				int[] row = viewtable.getSelectedRows();
 				for (int i = 0; i < row.length; i++) {
-					id = (String) viewtable.getValueAt(row[i], 0);
+					flightid = (String) viewtable.getValueAt(row[i], 0);
 				}
 				frame.dispose();
-                                new UpdateFlight(id);
+                                new UpdateFlight(flightid);
                                 
 			}
 		});
@@ -117,19 +118,19 @@ public class View_Details {
 		}
 
 		delete.addActionListener(new ActionListener() {
-			String tno;
+			String flightid;
 
 			public void actionPerformed(ActionEvent ae) {
 				int[] row = viewtable.getSelectedRows();
 				for (int i = 0; i < row.length; i++) {
-					tno = (String) viewtable.getValueAt(row[i], 0);
+					flightid = (String) viewtable.getValueAt(row[i], 0);
 
-					String sqldel = "DELETE FROM `flightdetails` where `flightid`='" + tno + "' ";
-					connect.append(sqldel, "cancel");
+					String sqldel = "DELETE FROM `flight` where `fid`='" + flightid + "' ";
+					connect.append(sqldel, "deleted");
                                         
                                          viewtable.repaint();
                                         autotablerow.getDataVector().removeAllElements();
-                                        String stringsql2="SELECT * FROM `flightdetails`";
+                                        String stringsql2="SELECT * FROM `flight`";
                                         try {
 					ResultSet rs = connect.display(stringsql2);
 					viewsp.repaint();
@@ -147,5 +148,11 @@ public class View_Details {
 		});
 
 	}
-
+ public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new View_Details("admin");
+            }
+        });
+    }
 }

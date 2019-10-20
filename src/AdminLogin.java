@@ -16,7 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class AdminLogin {
-TxtCompare up=new TxtCompare();
+
+    TxtCompare up = new TxtCompare();
+
     AdminLogin() {
 
         Connect connect = new Connect();
@@ -74,8 +76,6 @@ TxtCompare up=new TxtCompare();
         lgnbtn.setBounds(280, 170, 110, 35);
         imagebackground.add(lgnbtn);
 
-        
-        
         ////
 //        TxtCompare up = new TxtCompare();
 //        if(!up.compare(name,"Aas")) {
@@ -147,49 +147,40 @@ TxtCompare up=new TxtCompare();
 //		         
 //	}
 //});
-
-        
-        
         ///
         lgnbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
 
                 // connecting and getting usertype from database
-                
+                String uname = userfield.getText().toString();
+                String pwd = String.valueOf(pwdfield.getPassword());
+                if (!up.compare(uname, "Aas")) {
+                    JOptionPane.showMessageDialog(null, "Invalid username");
+                } else if (up.compare(uname, "Aas")) {
 
-                    String uname = userfield.getText().toString();
-                    String pwd = String.valueOf(pwdfield.getPassword());
-if(!up.compare(uname,"Aas")){
-    JOptionPane.showMessageDialog(null,"Invalid username");
-}else if(up.compare(uname,"Aas")){
-    
-                  try{
-                    String sql = "SELECT * FROM `adminanduser`";
+                    try {
+                        String sql = "SELECT * FROM `adminanduser`";
 
-                    ResultSet rs = connect.display(sql);
-                    while (rs.next()) {
-                        String username = rs.getString(1);
-                        String password = rs.getString(2);
-                        String usertype = rs.getString(3);
+                        ResultSet rs = connect.display(sql);
+                        while (rs.next()) {
+                            String username = rs.getString(2);
+                            String password = rs.getString(3);
+                            String usertype = rs.getString(4);
 
-                        if (uname.equals(username) && pwd.equals(password)) {
-                            frame.dispose();
-                            new AdminInterface(usertype);
+                            if (uname.equals(username) && pwd.equals(password)) {
+                                frame.dispose();
+                                new AdminInterface(usertype);
+                            }
+
                         }
-                        
 
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e);
                     }
 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e);
                 }
 
-}      
-
-}
-});
+            }
+        });
     }
 }
-    
-
-

@@ -1,3 +1,6 @@
+package plane;
+
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,7 +35,7 @@ public class Connect {
 		}
 	}
 
-	protected Connection getConnect() {
+	protected void getConnect() {
 
 		try {
 			Class.forName(driver);
@@ -41,7 +44,6 @@ public class Connect {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-                return conn;
 
 	}
 
